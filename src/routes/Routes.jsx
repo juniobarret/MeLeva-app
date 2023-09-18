@@ -1,9 +1,12 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import CadastroDoDia from "../components/CadastroDoDia";
 import Login from "../screens/Login";
 import Principal from "../screens/Principal";
 import Menu from "../screens/Menu";
 import Agenda from "../screens/Agenda";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
 
