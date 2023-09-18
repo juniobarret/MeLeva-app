@@ -4,14 +4,12 @@ import MenuItem from "../components/MenuItem";
 import CadastroDoDia from "../components/CadastroDoDia";
 import ListaDePassageiros from "../components/ListaDePassageiros";
 
-/* const menuItens = [
-    {nome: "Cadastro do Dia", rota:"Principal"},
-    {nome: "Avisos"},
-    {nome: "Agenda", rota:"Agenda"},
-    {nome: "Horarios"},
-    {nome: "Calendario Escolar"},
-    {nome: "Sair"}
-] */
+
+
+    const menuItens = [
+        {nome:"Reclamações", rota:"Reclamacoes"},
+        {nome:"Pontos de saída", rota:"PontosDeSaida"}
+    ]
 
 function Menu({navigation}){
     return <View style={styles.containerPrincipal}>
@@ -19,15 +17,13 @@ function Menu({navigation}){
         <CadastroDoDia/>
         <ListaDePassageiros/>
 
-
-       {/*  <FlatList style={styles.FlatList}
+        <FlatList style={styles.FlatList}
             data={menuItens}
             renderItem={({item})=><MenuItem {...item} onPress={()=>{
                 navigation.navigate(item.rota);
             }} />}
             keyExtractor={item=>item.nome}
         />
-         */}
     </View>
 }
 
@@ -45,8 +41,6 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 20,
         paddingTop: 20,
-        alignContent: "center",
-
     },
 
 })
