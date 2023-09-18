@@ -1,9 +1,11 @@
 
-import CadastroDoDia from "../components/CadastroDoDia";
 import Login from "../screens/Login";
 import Principal from "../screens/Principal";
 import Menu from "../screens/Menu";
 import Agenda from "../screens/Agenda";
+import PontosDeSaida from "../screens/PontosDeSaida";
+import Reclamacoes from "../screens/Reclamacoes";
+import CadastroDoDia from "../screens/CadastroDoDia";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -23,10 +25,24 @@ function Routes(){
               headerShown: false
             }}>
 {/*         <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Principal" component={Principal} />    */}             
-            <Stack.Screen name="Menu" component={Menu} options={{
+            <Stack.Screen name="Principal" component={Principal} />    */}  
+
+      {  <Stack.Screen name="Menu" component={Menu} options={{
               headerShown: false
-            }} />                
+            }} /> } 
+
+{            <Stack.Screen name="CadastroDoDia" component={CadastroDoDia} /> }
+            
+            <Stack.Screen name="Reclamacoes" component={Reclamacoes} options={{
+              headerShown: false
+             }} />
+
+            <Stack.Screen name="PontosDeSaida" component={PontosDeSaida} options={{
+              headerShown: false
+             }} />
+
+  
+
             <Stack.Screen name="Agenda" component={Agenda} />                
           </Stack.Navigator>
         </NavigationContainer>

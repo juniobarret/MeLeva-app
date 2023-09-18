@@ -9,7 +9,7 @@ function UserInfo({}){
             <Avatar/>
             <View style={styles.containerNome}>
                 <Text style={styles.textNome}>Passageiro</Text>
-                <Text style={styles.textLink}>Faculdade Exemplo</Text>
+                <Text style={styles.NomeFaculdade}>Faculdade Exemplo</Text>
             </View>
 
             <View style={styles.statusDia}>
@@ -75,25 +75,26 @@ const styles = StyleSheet.create({
 
     textNome:{
         color: "#ffffff",
-        fontSize:17,
+        fontSize:25,
         fontWeight: "bold"
     },
 
     textStatusDia1:{
         color: "#ffffff",
-        fontSize:12,
+        fontSize:15,
     },
 
     textStatusDia2:{
         color: "#ffffff",
-        fontSize:10,
+        fontSize:13,
         marginHorizontal: 6,
     },
 
 
-    textLink: {
+    NomeFaculdade: {
         color: "#F3CECE",
         fontSize:13,
+        fontStyle: "italic",
     }
 });
 

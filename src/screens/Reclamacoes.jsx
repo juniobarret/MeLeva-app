@@ -1,20 +1,18 @@
-import { FlatList, StyleSheet, View, Text, React } from "react-native";
+import { FlatList, StyleSheet, View, Text, React, TextInput } from "react-native";
 import Button from "../components/Button-retorno";
 import Menu from "./Menu";
 
 
-function PontosSaida({navigation}) {
+function Reclamacoes({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.container2}>
-      <Text style={styles.titulo}>Pontos de Saída</Text>
-
-      <Text style={styles.text}>1º PONTO: Em frente a copiadora COPYVALE </Text>
-      <Text style={styles.text}>2º PONTO: Poliesportivo</Text>
-      <Text style={styles.text}>3º PONTO: Posto Senhor do Bonfim</Text>
-      <Text style={styles.text}>4º PONTO: Guarita do São José</Text>
-
-      <Text style={styles.subtitulo}>HORÁRIO DE SAÍDA: 18h </Text>
+        <Text style={styles.titulo}>Reclamações</Text>
+        <View>
+            <textarea  name="sugestao" placeholder="Digite aqui sua reclamação" style={styles.textarea} required></textarea>
+             <button type="submit" style={styles.BotaoReclamacao}>Enviar</button>
+        </View>
+        
 
       <Button title="Retornar" onPress={(navigation) => navigation.navigate("Menu")} />
 
@@ -34,7 +32,6 @@ const styles = StyleSheet.create({
   },
 
   container2: {
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor:'#ffff',
     borderRadius: 30,
@@ -49,8 +46,6 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 10,
     textAlign: 'left',
-
-    
   },
 
   titulo: {
@@ -66,8 +61,30 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     paddingTop: 30,
-  }
-  
+  },
+
+    textarea: { 
+    width: 400,
+    height: 100,
+    fontFamily: 'Arial',
+    fontSize: 15,
+
+    },
+
+    BotaoReclamacao: {
+    flex: 1,
+    marginTop: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+    width: 80,
+    height: 30,
+    backgroundColor: '#1e7557',
+    borderRadius: 15,
+    color: '#ffffff',
+    fontSize: 15,
+    fontWeight: 'bold',
+    }
+
 });
 
-export default PontosSaida;
+export default Reclamacoes;

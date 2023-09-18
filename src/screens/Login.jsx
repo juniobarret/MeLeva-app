@@ -10,7 +10,7 @@ function Login({navigation}){
 
     return(
      <View>
-        <Input rotulo="E-mail" placeholder={"maria@email.com"} />
+        <Input rotulo="E-mail" placeholder={"user@email.com"} />
         <Input rotulo="Senha" placeholder={"********"} />
         <Button titulo="Entrar" onPress={handleLogin} />
      </View>
