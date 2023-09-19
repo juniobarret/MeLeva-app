@@ -1,19 +1,41 @@
+
+// Para redirecionar o "Button-CadastroDoDia" para a tela "CadastroDoDia", é necessário importar o componente "CadastroDoDia" e alterar o onPress para: onPress={() => navigation.navigate("CadastroDoDia")}. FICARIA ASSIM:
+// obs: Use o "<Text style={styles.textCadastroDoDia}>Cadastro do dia</Text>" para criar o botão e utilize a estilização já pronta no styles abaixo.
+
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import CadastroDoDia from "../screens/CadastroDoDia"; 
+import CadastroDoDia from "../screens/CadastroDoDia";
+import { useNavigation } from "@react-navigation/native";
 
-const ButtonCadastroDoDia = () => {
+const ButtonCadastroDoDia = () => 
+
+{
+  const navigation = useNavigation();
+
   return (
     <View style={styles.containerPrincipal}>
       <View style={styles.container1}>
-        <Text style={styles.textCadastroDoDia}>Cadastro do dia</Text>
-        <TouchableOpacity style={styles.botaoCadastroDoDia}>
+        <TouchableOpacity style={styles.botaoCadastroDoDia}
+          onPress={() => navigation.navigate("CadastroDoDia")}
+        >
+          <Text style={styles.botaoText}>Cadastro do dia</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
+
+/* const ButtonCadastroDoDia = () => {
+  return (
+    <View style={styles.containerPrincipal}>
+      <View style={styles.container1}>
+        <Text style={styles.textCadastroDoDia}>Cadastro do dia</Text>
+      </View>
+    </View>
+  );
+};
+ */
 
 const styles = StyleSheet.create({
   containerPrincipal: {
@@ -31,21 +53,20 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 15,
     textShadowColor: "#000000",
-    backgroundColor: "#00000020",
     width: 210,
     height: 40,
     textAlign: "center",
-    padding: 10,
-    borderWidth: 0.5,
-    borderRadius: 5,
-    marginTop: 20,
   },
 
   botaoCadastroDoDia: {
-    backgroundColor: "#1e7557",
+    backgroundColor: "#00000020",
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
+    marginTop: 20,
+    padding: 10,
+    borderWidth: 0.5,
+    borderRadius: 5,
     marginTop: 20,
   },
 

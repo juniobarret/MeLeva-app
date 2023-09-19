@@ -5,54 +5,73 @@ import Button from "../components/Button-retorno";
 function CadastroDoDia({ navigation }) {
   const [nome, setNome] = useState('');
   const [dataAula, setDataAula] = useState('');
-  const [faculdade, setFaculdade] = useState('IFNMG'); // Valor padrão selecionado
+  const [faculdade, setFaculdade] = useState('IFNMG');
 
   const handleCadastro = () => {
     // Lógica para salvar os dados do cadastro
+    // Esta função será implementada para interagir com o backend
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.container2}>
+      <View style={styles.formContainer1}>
+
+
+
+      </View>
+      <View style={styles.formContainer}>
         <Text style={styles.titulo}>Cadastro Diário</Text>
 
-        <TextInput
-          style={styles.campoFormulario}
-          placeholder="Nome"
-          value={nome}
-          onChangeText={setNome}
-        />
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Nome:</Text>
+          <TextInput
+            style={styles.campoNome}
+            placeholder="Digite o nome"
+            value={nome}
+            onChangeText={setNome}
+          />
+        </View>
 
-        <TextInput
-          style={styles.campoFormulario}
-          placeholder="Data da Aula"
-          value={dataAula}
-          onChangeText={setDataAula}
-        />
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Faculdade:</Text>
+          <Picker
+            selectedValue={faculdade}
+            style={styles.picker}
+            onValueChange={(itemValue) => setFaculdade(itemValue)}
+          >
+            <Picker.Item label="IFNMG" value="IFNMG" />
+            <Picker.Item label="ALFA" value="ALFA" />
+            <Picker.Item label="UNOPAR" value="UNOPAR" />
+            <Picker.Item label="UNIPAC" value="UNIPAC" />
+            <Picker.Item label="DOCTUM" value="DOCTUM" />
+            <Picker.Item label="UNIMONTES" value="UNIMONTES" />
+          </Picker>
+        </View>
 
-        {/* Seletor de Faculdade */}
-        <Picker
-          selectedValue={faculdade}
-          style={styles.picker}
-          onValueChange={(itemValue) => setFaculdade(itemValue)}
-        >
-          <Picker.Item label="IFNMG" value="IFNMG" />
-          <Picker.Item label="ALFA" value="ALFA" />
-          <Picker.Item label="UNOPAR" value="UNOPAR" />
-          <Picker.Item label="UNIPAC" value="UNIPAC" />
-          <Picker.Item label="DOCTUM" value="DOCTUM" />
-          <Picker.Item label="UNIMONTES" value="UNIMONTES" />
-        </Picker>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Data:</Text>
+          <input
+            type="date"
+            style={styles.campoData}
+            placeholder="Data da Aula"
+            value={dataAula}
+            onChange={(e) => setDataAula(e.target.value)}
+          />
+        </View>
 
         <TouchableOpacity
-          style={styles.BotaoReclamacao}
-          onPress={() => navigation.navigate("Menu")} // Navegar para a tela Menu
+          style={styles.BotaoEnviar}
+          onPress={handleCadastro} // Chamando a função de cadastro
         >
-          <Text style={styles.BotaoReclamacaoText}>Retornar</Text>
+          <Text style={styles.BotaoEnviarText}>Enviar</Text>
         </TouchableOpacity>
-
-        <Button title="Retornar" onPress={() => navigation.navigate("Menu")} />
+      
+      
+      
       </View>
+
+      {/* Movendo o elemento Button-retorno abaixo do botão "Enviar" */}
+      <Button title="Retornar" onPress={() => navigation.navigate("Menu")} />
     </View>
   );
 }
@@ -62,57 +81,75 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#88c1ad",
+    backgroundColor: "#88c1ad", // Mantendo a cor de fundo anterior
   },
 
-  container2: {
-    alignItems: "center",
-    backgroundColor: "#ffff",
-    borderRadius: 30,
-    padding: 30,
-    minWidth: 350,
+  formContainer: {
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    padding: 20,
+    width: "80%",
+    maxWidth: 400,
   },
 
   titulo: {
-    width: "100%",
-    textAlign: "center",
     fontSize: 24,
     fontWeight: "bold",
-    paddingBottom: 30,
+    marginBottom: 20,
+    textAlign: "center",
   },
 
-  campoFormulario: {
-    width: "100%",
-    height: 40,
-    backgroundColor: "#ffffff",
-    borderRadius: 10,
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 10,
-    padding: 10,
+  },
+
+  label: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+
+  campoNome: {
+    flex: 2,
+    height: 40,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 10,
+    paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: "#1e7557",
+    borderColor: "#ddd",
+  },
+
+  campoData: {
+    flex: 2,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
   },
 
   picker: {
-    width: "100%",
+    flex: 2,
     height: 40,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f9f9f9",
     borderRadius: 10,
-    marginVertical: 10,
     borderWidth: 1,
-    borderColor: "#1e7557",
+    borderColor: "#ddd",
   },
 
-  BotaoReclamacao: {
-    marginTop: 10,
-    alignItems: "center",
-    width: 120,
+  BotaoEnviar: {
+    flex: 1, // Ocupar metade do espaço no contêiner
     height: 40,
     backgroundColor: "#1e7557",
     borderRadius: 20,
     justifyContent: "center",
+    alignItems: "center", // Alinhar o texto ao centro
+    marginTop: 20, // Adicionando um espaçamento superior
   },
 
-  BotaoReclamacaoText: {
+  BotaoEnviarText: {
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "bold",
