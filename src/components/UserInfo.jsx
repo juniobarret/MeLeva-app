@@ -6,13 +6,16 @@ function UserInfo({}){
     return <View style={styles.containerPrincipal}>
 
         <View style={styles.containerLinha1}> 
-            <Avatar/>
-            <View style={styles.containerNome}>
-                <Text style={styles.textNome}>Passageiro</Text>
-                <Text style={styles.NomeFaculdade}>Faculdade Exemplo</Text>
+            <View style={styles.containerUser}>
+
+                    <Avatar/>
+                    <View style={styles.containerInfoUser}>
+                        <Text style={styles.textNome}>Passageiro</Text>
+                        <Text style={styles.NomeFaculdade}>Faculdade Exemplo</Text>
+                    </View>
             </View>
 
-            <View style={styles.statusDia}>
+            <View style={styles.containerStatus}>
                 <Text style={styles.textStatusDia1}>CADASTRO FEITO:</Text>
                 <Text style={styles.textStatusDia2}> <img src="https://images.emojiterra.com/twitter/v13.1/512px/2705.png"  width={10} /> Hoje</Text>
             </View>
@@ -22,6 +25,8 @@ function UserInfo({}){
         <View style={styles.containerLinha2}>
             <Text style={styles.textEditalPerfil}>Editar Perfil</Text>
         </View>
+
+
     </View>
 
 
@@ -31,7 +36,11 @@ function UserInfo({}){
 const styles = StyleSheet.create({
 
     containerPrincipal: {
+        alignItems: "stretch",
         padding: 25,
+        margin: "auto",
+        width: "95%",
+        height: "20%",
         backgroundColor:"#3B3B3B", 
         borderRadius: 10,
     },
@@ -39,6 +48,7 @@ const styles = StyleSheet.create({
     containerLinha1: {
         flexDirection: "row",
         alignItems: "center",
+        margin: "20",
         backgroundColor:"#3B3B3B", 
         borderRadius: 10,
     },
@@ -47,6 +57,10 @@ const styles = StyleSheet.create({
         flexDirection: "space-around", 
         padding: 5,
         alignItems: "center",
+    },
+
+    container3: {
+        flexDirection: "column",
     },
 
     textEditalPerfil:{
@@ -58,15 +72,22 @@ const styles = StyleSheet.create({
         borderColor: "#ffffff",
         borderWidth: 0.5,
         borderRadius: 15,
-        marginTop: 20,
+        marginTop: 10,
+    },
+
+    containerInfoUser: {
+        flexDirection: "column",
+        marginLeft: 10,
     },
 
 
-    containerNome:{
-        marginLeft: 10
+    containerUser:{
+        flexDirection: "row",
+        marginLeft: "auto",
+        marginHorizontal: 10,
     },
 
-    statusDia:{
+    containerStatus:{
         flexDirection: "column",
         alignItems: "center",
         marginLeft: "auto",
@@ -75,13 +96,13 @@ const styles = StyleSheet.create({
 
     textNome:{
         color: "#ffffff",
-        fontSize:25,
+        fontSize:"1.2rem",
         fontWeight: "bold"
     },
 
     textStatusDia1:{
         color: "#ffffff",
-        fontSize:15,
+        fontSize: "0.8rem",
     },
 
     textStatusDia2:{

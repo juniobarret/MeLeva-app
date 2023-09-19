@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import UserInfo from "../components/UserInfo";
 import MenuItem from "../components/MenuItem";
-import CadastroDoDia from "../components/CadastroDoDia";
+import CadastroDoDia from "../components/Button-CadastroDoDia";
 import ListaDePassageiros from "../components/ListaDePassageiros";
 
 
