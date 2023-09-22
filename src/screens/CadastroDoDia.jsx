@@ -2,14 +2,26 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Picker } from "react-native";
 import Button from "../components/Button-retorno";
 
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from "../conf/firebase";
+
+
 function CadastroDoDia({ navigation }) {
   const [nome, setNome] = useState('');
   const [dataAula, setDataAula] = useState('');
   const [faculdade, setFaculdade] = useState('IFNMG');
 
-  const handleCadastro = () => {
-    // Lógica para salvar os dados do cadastro
-    // Esta função será implementada para interagir com o backend
+  const handleCadastro = async () => {
+      const passageiro = {
+        nome: nome,
+        faculdade: faculdade,
+        dataCadastro: new Date(),
+      };
+      // Add a new document with a generated id.
+const docRef = await addDoc(collection(db, "viagens",dataAula,"passageiros"), passageiro);
+console.log("Document written with ID: ", docRef.id);
+
+
   };
 
   return (
@@ -61,7 +73,7 @@ function CadastroDoDia({ navigation }) {
 
         <TouchableOpacity
           style={styles.BotaoEnviar}
-          onPress={handleCadastro} // Chamando a função de cadastro
+          onPress={handleCadastro} 
         >
           <Text style={styles.BotaoEnviarText}>Enviar</Text>
         </TouchableOpacity>
@@ -70,7 +82,7 @@ function CadastroDoDia({ navigation }) {
       
       </View>
 
-      {/* Movendo o elemento Button-retorno abaixo do botão "Enviar" */}
+      
       <Button title="Retornar" onPress={() => navigation.navigate("Menu")} />
     </View>
   );
@@ -81,7 +93,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#88c1ad", // Mantendo a cor de fundo anterior
+    backgroundColor: "#88c1ad", 
   },
 
   formContainer: {
@@ -140,13 +152,13 @@ const styles = StyleSheet.create({
   },
 
   BotaoEnviar: {
-    flex: 1, // Ocupar metade do espaço no contêiner
+    flex: 1, 
     height: 40,
     backgroundColor: "#1e7557",
     borderRadius: 20,
     justifyContent: "center",
-    alignItems: "center", // Alinhar o texto ao centro
-    marginTop: 20, // Adicionando um espaçamento superior
+    alignItems: "center", 
+    marginTop: 20, 
   },
 
   BotaoEnviarText: {
