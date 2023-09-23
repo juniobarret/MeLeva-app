@@ -1,6 +1,5 @@
 
-// Para redirecionar o "Button-CadastroDoDia" para a tela "CadastroDoDia", é necessário importar o componente "CadastroDoDia" e alterar o onPress para: onPress={() => navigation.navigate("CadastroDoDia")}. FICARIA ASSIM:
-// obs: Use o "<Text style={styles.textCadastroDoDia}>Cadastro do dia</Text>" para criar o botão e utilize a estilização já pronta no styles abaixo.
+
 
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";

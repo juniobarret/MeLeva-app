@@ -11,6 +11,8 @@ function CadastroDoDia({ navigation }) {
   const [dataAula, setDataAula] = useState('');
   const [faculdade, setFaculdade] = useState('IFNMG');
 
+  // PARTE DO FIREBASE:
+
   const handleCadastro = async () => {
       const passageiro = {
         nome: nome,
@@ -19,8 +21,8 @@ function CadastroDoDia({ navigation }) {
       };
       // Add a new document with a generated id.
 const docRef = await addDoc(collection(db, "viagens",dataAula,"passageiros"), passageiro);
-console.log("Document written with ID: ", docRef.id);
-
+console.log("Passageiro cadastrado com o ID: ", docRef.id);
+// 
 
   };
 
