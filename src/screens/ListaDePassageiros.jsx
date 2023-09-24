@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, doc } from "firebase/firestore";
 import { db } from "../conf/firebase";
 import ButtonRetorno from "../components/Button-retorno";
 
@@ -10,12 +10,9 @@ function ListaDePassageiros() {
 
   useEffect(() => {
     const fetchPassageiros = async () => {
-      if (filtroData) {
-        const q = query(
-          collection(db, "viagens", filtroData, "passageiros"),
-          where("dataCadastro", ">=", new Date(`${filtroData}T00:00:00Z`)),
-          where("dataCadastro", "<=", new Date(`${filtroData}T23:59:59Z`))
-        );
+      try {
+        const viagemRef = doc(db, "viagens", filtroData); // Referência para o documento de viagem correto
+        const q = query(collection(viagemRef, "passageiros"));
 
         const querySnapshot = await getDocs(q);
         const passageirosData = [];
@@ -25,12 +22,14 @@ function ListaDePassageiros() {
         });
 
         setPassageiros(passageirosData);
-      } else {
-        setPassageiros([]);
+      } catch (error) {
+        console.error("Erro ao buscar passageiros: ", error);
       }
     };
 
-    fetchPassageiros();
+    if (filtroData) {
+      fetchPassageiros();
+    }
   }, [filtroData]);
 
   return (
@@ -50,14 +49,17 @@ function ListaDePassageiros() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.passageiroItem}>
-            <Text style={styles.dado}>Nome: {item.nome}</Text>
-            <Text style={styles.dado}>Faculdade: {item.faculdade}</Text>
-            <Text style={styles.dado}>
-              Data: {item.dataCadastro.toDate().toLocaleDateString()}
-            </Text>
-            <Text style={styles.dado}>
-              Horário: {item.dataCadastro.toDate().toLocaleTimeString()}
-            </Text>
+            <Text style={styles.label}>Nome:</Text>
+            <Text style={styles.dado}>{item.nome}</Text>
+            
+            <Text style={styles.label}>Faculdade:</Text>
+            <Text style={styles.dado}>{item.faculdade}</Text>
+            
+            <Text style={styles.label}>Data:</Text>
+            <Text style={styles.dado}>{item.dataCadastro.toDate().toLocaleDateString()}</Text>
+            
+            <Text style={styles.label}>Horário:</Text>
+            <Text style={styles.dado}>{item.dataCadastro.toDate().toLocaleTimeString()}</Text>
           </View>
         )}
       />
@@ -105,19 +107,23 @@ const styles = StyleSheet.create({
   },
 
   passageiroItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
   },
 
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 5,
+  },
+
   dado: {
-    flex: 1,
     fontSize: 16,
     color: "#555",
+    marginBottom: 15,
   },
 });
 
