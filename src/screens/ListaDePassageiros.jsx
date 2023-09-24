@@ -111,7 +111,7 @@ function ListaDePassageiros() {
                     backgroundColor: faculdadesCores[passageiro.faculdade],
                   }}
                 >
-                  <Text style={styles.label}>Nome:</Text>
+                  <Text style={styles.label}>Passageiro:</Text>
                   <Text style={styles.dado}>{passageiro.nome}</Text>
 
                   <Text style={styles.label}>Faculdade:</Text>
@@ -186,7 +186,6 @@ const styles = StyleSheet.create({
   },
 
   filtroContainer: {
-    flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
   },
@@ -199,13 +198,10 @@ const styles = StyleSheet.create({
   },
 
   filtroInput: {
-    flex: 2,
-    height: 40,
     backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: "#1e7557",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    padding: 5,
+    alignContent: "center",
   },
 
   picker: {
@@ -240,20 +236,28 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#333",
-    width: 80,
+    color: "#ffffff",
+    paddingHorizontal: 2,
+
   },
 
   dado: {
-    fontSize: 16,
-    color: "#000",
+    fontSize: 14,
+    color: "#ffffff",
     flex: 1,
+    marginLeft: 2,
   },
 
   totalPassageiros: {
     fontSize: 18,
     fontWeight: "bold",
     marginTop: 20,
+    textAlign: "center",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    padding: 10,
+    color: "#1e7557",
+
   },
 });
 
