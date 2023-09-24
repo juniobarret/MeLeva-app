@@ -72,6 +72,7 @@ function ListaDePassageiros() {
   const totalPassageiros = passageirosFiltrados.length;
 
   return (
+
     <View style={styles.container}>
       <Text style={styles.titulo}>Lista de Passageiros</Text>
       <View style={styles.filtroContainer}>
@@ -88,6 +89,8 @@ function ListaDePassageiros() {
           </View>
           <View style={styles.filtroItem}>
             <Text style={styles.filtroText}>Faculdade:</Text>
+
+            
             <Picker
               style={styles.picker}
               selectedValue={filtroFaculdade}
@@ -97,7 +100,9 @@ function ListaDePassageiros() {
               {faculdadesOrdenadas.map((faculdade) => (
                 <Picker.Item key={faculdade} label={faculdade} value={faculdade} />
               ))}
-            </Picker>
+            </Picker> 
+
+            
           </View>
         </View>
       </View>
@@ -116,6 +121,7 @@ function ListaDePassageiros() {
                     backgroundColor: faculdadesCores[passageiro.faculdade],
                   }}
                 >
+                  <Text style={styles.label}>Nome:</Text>
                   <Text style={styles.dado}>{passageiro.nome}</Text>
                 </View>
               ))}
@@ -133,6 +139,7 @@ function ListaDePassageiros() {
                 backgroundColor: faculdadesCores[item.faculdade],
               }}
             >
+              <Text style={styles.label}>Nome:</Text>
               <Text style={styles.dado}>{item.nome}</Text>
             </View>
           )}
@@ -141,12 +148,17 @@ function ListaDePassageiros() {
       <Text style={styles.totalPassageiros}>
         Total de Passageiros: {totalPassageiros}
       </Text>
-      <ButtonRetorno />
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
+    part1: {
+        flex: 1,
+        backgroundColor: "#86BDAA",
+    },
+    
   container: {
     flex: 1,
     backgroundColor: "#86BDAA",
@@ -228,17 +240,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#1e7557", // Cor de fundo
   },
 
+  label: {
+    fontSize: "90%",
+    fontWeight: "bold",
+    color: "#ffffff",
+    paddingHorizontal: 2,
+    marginLeft: 8,
+  },
+
   dado: {
-    fontSize: 16,
+    fontSize: "82%",
     color: "#ffffff",
     flex: 1,
-    marginLeft: 8,
+    marginLeft: 2,
   },
 
   totalPassageiros: {
     fontSize: 18,
     fontWeight: "bold",
-    marginTop: 20,
+    marginTop: "2%",
+    marginBottom: "1%",
     textAlign: "center",
     backgroundColor: "#FFFFFF",
     borderRadius: 10,

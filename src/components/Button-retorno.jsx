@@ -4,6 +4,8 @@ import { Text, TouchableOpacity } from "react-native";
 function Button({titulo, onPress}){
     return <TouchableOpacity style={{
         backgroundColor: "#1E7557",
+        width: 30,
+        height: 30,
         padding: 5,
         margin: 10,        
         borderRadius: 10,

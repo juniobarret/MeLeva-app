@@ -26,9 +26,9 @@ function Routes(){
               headerShown: false
             }}>
 
-{/*             <Stack.Screen name="Login" component={Login} />  */}
+          <Stack.Screen name="Login" component={Login} />  
 
-           {/*  {  <Stack.Screen name="Menu" component={Menu} options={{
+           {  <Stack.Screen name="Menu" component={Menu} options={{
               headerShown: false 
             }} /> }   
 
@@ -41,7 +41,7 @@ function Routes(){
             <Stack.Screen name="PontosDeSaida" component={PontosDeSaida} options={{
               headerShown: false
              }} />  
- */}
+
             <Stack.Screen name="ListaDePassageiros" component={ListaDePassageiros} options={{
               headerShown: false
               }} />
