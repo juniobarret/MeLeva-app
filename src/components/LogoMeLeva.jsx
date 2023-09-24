@@ -12,6 +12,7 @@ const MeuComponente = () => {
 
 const styles = {
     logo: {
+        marginTop: -130,
         marginBottom: 10,
         width: 200,
         height: 200,
