@@ -6,46 +6,57 @@ import ButtonRetorno from "../components/Button-retorno";
 
 function ListaDePassageiros() {
   const [passageiros, setPassageiros] = useState([]);
+  const [filtroData, setFiltroData] = useState("");
 
   useEffect(() => {
     const fetchPassageiros = async () => {
-      const q = query(
-        collection(db, "viagens", "2023-09-29", "passageiros"),
-      );
-      const querySnapshot = await getDocs(q);
-      const passageirosData = [];
+      if (filtroData) {
+        const q = query(
+          collection(db, "viagens", filtroData, "passageiros"),
+          where("dataCadastro", ">=", new Date(`${filtroData}T00:00:00Z`)),
+          where("dataCadastro", "<=", new Date(`${filtroData}T23:59:59Z`))
+        );
 
-      querySnapshot.forEach((doc) => {
-        passageirosData.push({ id: doc.id, ...doc.data() });
-      });
+        const querySnapshot = await getDocs(q);
+        const passageirosData = [];
 
-      setPassageiros(passageirosData);
+        querySnapshot.forEach((doc) => {
+          passageirosData.push({ id: doc.id, ...doc.data() });
+        });
+
+        setPassageiros(passageirosData);
+      } else {
+        setPassageiros([]);
+      }
     };
 
     fetchPassageiros();
-  }, []);
+  }, [filtroData]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Lista de Passageiros</Text>
-      <View style={styles.tabelaCabecalho}>
-        <Text style={styles.cabecalho}>Nome</Text>
-        <Text style={styles.cabecalho}>Faculdade</Text>
-        <Text style={styles.cabecalho}>Data</Text>
-        <Text style={styles.cabecalho}>Horário</Text>
+      <View style={styles.filtroContainer}>
+        <Text style={styles.filtroLabel}>Filtrar por Data:</Text>
+        <input
+          type="date"
+          style={styles.filtroInput}
+          value={filtroData}
+          onChange={(e) => setFiltroData(e.target.value)}
+        />
       </View>
       <FlatList
         data={passageiros}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.passageiroItem}>
-            <Text style={styles.dado}>{item.nome}</Text>
-            <Text style={styles.dado}>{item.faculdade}</Text>
+            <Text style={styles.dado}>Nome: {item.nome}</Text>
+            <Text style={styles.dado}>Faculdade: {item.faculdade}</Text>
             <Text style={styles.dado}>
-              {item.dataCadastro.toDate().toLocaleDateString()}
+              Data: {item.dataCadastro.toDate().toLocaleDateString()}
             </Text>
             <Text style={styles.dado}>
-              {item.dataCadastro.toDate().toLocaleTimeString()}
+              Horário: {item.dataCadastro.toDate().toLocaleTimeString()}
             </Text>
           </View>
         )}
@@ -71,17 +82,26 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
 
-  tabelaCabecalho: {
+  filtroContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
+    alignItems: "center",
+    marginBottom: 20,
   },
 
-  cabecalho: {
-    flex: 1,
-    fontSize: 18,
+  filtroLabel: {
+    fontSize: 16,
     fontWeight: "bold",
-    color: "#1e7557",
+    marginRight: 10,
+  },
+
+  filtroInput: {
+    flex: 1,
+    height: 40,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#1e7557",
   },
 
   passageiroItem: {
