@@ -122,7 +122,7 @@ function ListaDePassageiros() {
                     {passageiro.dataCadastro.toDate().toLocaleDateString()}
                   </Text>
 
-                  <Text style={styles.label}>Horário:</Text>
+                  <Text style={styles.label}>Horário de Cadastro:</Text>
                   <Text style={styles.dado}>
                     {passageiro.dataCadastro.toDate().toLocaleTimeString()}
                   </Text>
@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
 
   filtroInput: {
     backgroundColor: "#FFFFFF",
+    borderWidth: 1,
     fontFamily: "Arial, Helvetica, sans-serif",
     padding: 5,
     alignContent: "center",
