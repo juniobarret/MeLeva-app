@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Picker } from "react-native";
 import Button from "../components/Button-retorno";
+import LogoMeLeva from "../components/LogoMeLeva";
 
 import { collection, addDoc } from "firebase/firestore"; 
 import { db } from "../conf/firebase";
+
 
 
 function CadastroDoDia({ navigation }) {
@@ -25,15 +27,18 @@ console.log("Passageiro cadastrado com o ID: ", docRef.id);
 // 
 
   };
-
+   
+  
   return (
     <View style={styles.container}>
+      
+
       <View style={styles.formContainer1}>
-
-
-
+    
       </View>
+      <LogoMeLeva />
       <View style={styles.formContainer}>
+        
         <Text style={styles.titulo}>Cadastro Diário</Text>
 
         <View style={styles.inputContainer}>

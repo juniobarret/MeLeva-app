@@ -28,9 +28,9 @@ function Routes(){
 
 {/*             <Stack.Screen name="Login" component={Login} />  */}
 
-            {  <Stack.Screen name="Menu" component={Menu} options={{
+{/*             {  <Stack.Screen name="Menu" component={Menu} options={{
               headerShown: false 
-            }} /> }  
+            }} /> }   */}
 
             {<Stack.Screen name="CadastroDoDia" component={CadastroDoDia} /> }
             

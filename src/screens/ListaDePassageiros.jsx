@@ -75,26 +75,31 @@ function ListaDePassageiros() {
     <View style={styles.container}>
       <Text style={styles.titulo}>Lista de Passageiros</Text>
       <View style={styles.filtroContainer}>
-        <Text style={styles.filtroLabel}>Filtrar por Data:</Text>
-        <input
-          type="date"
-          style={styles.filtroInput}
-          value={filtroData}
-          onChange={(e) => setFiltroData(e.target.value)}
-        />
-      </View>
-      <View style={styles.filtroContainer}>
-        <Text style={styles.filtroLabel}>Filtrar por Faculdade:</Text>
-        <Picker
-          style={styles.picker}
-          selectedValue={filtroFaculdade}
-          onValueChange={(itemValue) => setFiltroFaculdade(itemValue)}
-        >
-          <Picker.Item label="Todas" value="Todas" />
-          {faculdadesOrdenadas.map((faculdade) => (
-            <Picker.Item key={faculdade} label={faculdade} value={faculdade} />
-          ))}
-        </Picker>
+        <Text style={styles.filtroLabel}>Filtro de pesquisa</Text>
+        <View style={styles.filtros}>
+          <View style={styles.filtroItem}>
+            <Text style={styles.filtroText}>Data:</Text>
+            <input
+              type="date"
+              style={styles.filtroInput}
+              value={filtroData}
+              onChange={(e) => setFiltroData(e.target.value)}
+            />
+          </View>
+          <View style={styles.filtroItem}>
+            <Text style={styles.filtroText}>Faculdade:</Text>
+            <Picker
+              style={styles.picker}
+              selectedValue={filtroFaculdade}
+              onValueChange={(itemValue) => setFiltroFaculdade(itemValue)}
+            >
+              <Picker.Item label="Todas" value="Todas" />
+              {faculdadesOrdenadas.map((faculdade) => (
+                <Picker.Item key={faculdade} label={faculdade} value={faculdade} />
+              ))}
+            </Picker>
+          </View>
+        </View>
       </View>
       {filtroFaculdade === "Todas" ? (
         <FlatList
@@ -111,7 +116,7 @@ function ListaDePassageiros() {
                     backgroundColor: faculdadesCores[passageiro.faculdade],
                   }}
                 >
-                  <Text style={styles.label}>Passageiro:</Text>
+                  <Text style={styles.label}>Nome:</Text>
                   <Text style={styles.dado}>{passageiro.nome}</Text>
 
                   <Text style={styles.label}>Faculdade:</Text>
@@ -124,7 +129,7 @@ function ListaDePassageiros() {
 
                   <Text style={styles.label}>Horário de Cadastro:</Text>
                   <Text style={styles.dado}>
-                    {passageiro.dataCadastro.toDate().toLocaleTimeString()}
+                    {passageiro.dataCadastro.toDate().toLocaleTimeString().substr(0, 5)} {/* Exibe apenas Hora e Minuto */}
                   </Text>
                 </View>
               ))}
@@ -155,7 +160,7 @@ function ListaDePassageiros() {
 
               <Text style={styles.label}>Horário:</Text>
               <Text style={styles.dado}>
-                {item.dataCadastro.toDate().toLocaleTimeString()}
+                {item.dataCadastro.toDate().toLocaleTimeString().substr(0, 5)} {/* Exibe apenas Hora e Minuto */}
               </Text>
             </View>
           )}
@@ -191,7 +196,22 @@ const styles = StyleSheet.create({
   },
 
   filtroLabel: {
-    flex: 1,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+  },
+
+  filtros: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  filtroItem: {
+    marginRight: 20,
+  },
+
+  filtroText: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#333",
@@ -239,7 +259,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#ffffff",
     paddingHorizontal: 2,
-
   },
 
   dado: {
@@ -258,7 +277,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     color: "#1e7557",
-
   },
 });
 
