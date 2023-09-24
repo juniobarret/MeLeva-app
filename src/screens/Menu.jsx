@@ -4,6 +4,7 @@ import UserInfo from "../components/UserInfo";
 import MenuItem from "../components/MenuItem";
 import CadastroDoDia from "../components/Button-CadastroDoDia00";
 import ListaDePassageiros from "../components/ListaDePassageiros00";
+import ImgEstudante from "../components/ImgEstudante";
 
 const menuItens = [
   { nome: "Reclamações", rota: "Reclamacoes" },
@@ -35,6 +36,7 @@ function Menu({ navigation }) {
         )}
         keyExtractor={(item) => item.nome}
       />
+
     </View>
   );
 }

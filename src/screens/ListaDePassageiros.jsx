@@ -116,21 +116,7 @@ function ListaDePassageiros() {
                     backgroundColor: faculdadesCores[passageiro.faculdade],
                   }}
                 >
-                  <Text style={styles.label}>Nome:</Text>
                   <Text style={styles.dado}>{passageiro.nome}</Text>
-
-                  <Text style={styles.label}>Faculdade:</Text>
-                  <Text style={styles.dado}>{passageiro.faculdade}</Text>
-
-                  <Text style={styles.label}>Data:</Text>
-                  <Text style={styles.dado}>
-                    {passageiro.dataCadastro.toDate().toLocaleDateString()}
-                  </Text>
-
-                  <Text style={styles.label}>Horário de Cadastro:</Text>
-                  <Text style={styles.dado}>
-                    {passageiro.dataCadastro.toDate().toLocaleTimeString().substr(0, 5)} {/* Exibe apenas Hora e Minuto */}
-                  </Text>
                 </View>
               ))}
             </View>
@@ -147,21 +133,7 @@ function ListaDePassageiros() {
                 backgroundColor: faculdadesCores[item.faculdade],
               }}
             >
-              <Text style={styles.label}>Nome:</Text>
               <Text style={styles.dado}>{item.nome}</Text>
-
-              <Text style={styles.label}>Faculdade:</Text>
-              <Text style={styles.dado}>{item.faculdade}</Text>
-
-              <Text style={styles.label}>Data:</Text>
-              <Text style={styles.dado}>
-                {item.dataCadastro.toDate().toLocaleDateString()}
-              </Text>
-
-              <Text style={styles.label}>Horário:</Text>
-              <Text style={styles.dado}>
-                {item.dataCadastro.toDate().toLocaleTimeString().substr(0, 5)} {/* Exibe apenas Hora e Minuto */}
-              </Text>
             </View>
           )}
         />
@@ -186,7 +158,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-    color: "#1e7557",
+    color: "#ffffff",
     marginTop: 40,
   },
 
@@ -243,6 +215,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "#ffffff",
   },
 
   passageiroItem: {
@@ -252,20 +225,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
-  },
-
-  label: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#ffffff",
-    paddingHorizontal: 2,
+    backgroundColor: "#1e7557", // Cor de fundo
   },
 
   dado: {
-    fontSize: 14,
+    fontSize: 16,
     color: "#ffffff",
     flex: 1,
-    marginLeft: 2,
+    marginLeft: 8,
   },
 
   totalPassageiros: {
