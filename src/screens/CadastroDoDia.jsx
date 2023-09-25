@@ -21,7 +21,6 @@ function CadastroDoDia({ navigation }) {
         faculdade: faculdade,
         dataCadastro: new Date(),
       };
-      // Add a new document with a generated id.
 const docRef = await addDoc(collection(db, "viagens",dataAula,"passageiros"), passageiro);
 console.log("Passageiro cadastrado com o ID: ", docRef.id);
 // 

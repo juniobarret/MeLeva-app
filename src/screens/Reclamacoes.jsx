@@ -4,10 +4,9 @@ import Button from "../components/Button-retorno";
 import Menu from "./Menu";
 
 function Reclamacoes({ navigation }) {
-  const [reclamacao, setReclamacao] = useState(""); // Estado para a reclamação
+  const [reclamacao, setReclamacao] = useState(""); 
 
   const handleEnviarReclamacao = () => {
-    // Lógica para enviar a reclamação
     console.log("Reclamação enviada:", reclamacao);
   };
 
@@ -16,7 +15,6 @@ function Reclamacoes({ navigation }) {
       <View style={styles.container2}>
         <Text style={styles.titulo}>Reclamações</Text>
 
-        {/* Campo de Reclamação */}
         <TextInput
           style={styles.textInput}
           placeholder="Digite aqui sua reclamação"
@@ -26,7 +24,6 @@ function Reclamacoes({ navigation }) {
           onChangeText={(text) => setReclamacao(text)}
         />
 
-        {/* Botão de Envio */}
         <TouchableOpacity
           style={styles.BotaoReclamacao}
           onPress={handleEnviarReclamacao}
@@ -53,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffff",
     borderRadius: 30,
     padding: 30,
-    minWidth: 350, // Definindo a largura mínima para evitar que fique muito pequeno
+    minWidth: 350, 
   },
 
   titulo: {
@@ -66,7 +63,7 @@ const styles = StyleSheet.create({
 
   textInput: {
     width: "100%",
-    height: 300, // Aumentando ainda mais a altura do campo de entrada
+    height: 300, 
     fontFamily: "Arial",
     fontSize: 16,
     backgroundColor: "#ffffff",

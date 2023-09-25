@@ -9,9 +9,7 @@ function CadastroDadosPessoais({ navigation }) {
   const [cpf, setCPF] = useState('');
 
   const handleNext = () => {
-    // Valide os campos aqui, por exemplo, verificando se todos os campos foram preenchidos corretamente
 
-    // Se os campos estiverem válidos, navegue para a próxima tela
     navigation.navigate('CadastroDadosAcademicos');
   };
 

@@ -10,10 +10,6 @@ function CadastroDadosAcademicos({ navigation }) {
   const [periodo, setPeriodo] = useState('');
 
   const handleCadastro = () => {
-    // Execute o cadastro com os dados fornecidos aqui
-    // Você pode usar Firebase ou outro serviço de backend para armazenar os dados
-    // Certifique-se de validar os dados antes de enviar para o servidor
-    // Redirecione para a próxima tela ou realize a ação apropriada com base no sucesso do cadastro
   };
 
   return (

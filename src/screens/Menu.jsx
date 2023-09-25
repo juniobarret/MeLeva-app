@@ -13,7 +13,7 @@ const menuItens = [
 
 function Menu({ navigation }) {
   const handleNavigateToListaDePassageiros = () => {
-    navigation.navigate("ListaDePassageiros"); // Navegue para a tela de ListaDePassageiros
+    navigation.navigate("ListaDePassageiros");
   };
 
   return (

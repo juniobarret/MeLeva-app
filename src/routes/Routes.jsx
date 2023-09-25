@@ -39,7 +39,6 @@ function Routes() {
 
           <Stack.Screen name="ListaDePassageiros" component={ListaDePassageiros} options={{ headerShown: false }} />
 
-          {/* Adicione as novas telas de cadastro aqui */}
           <Stack.Screen name="CadastroDadosPessoais" component={CadastroDadosPessoais} />
           <Stack.Screen name="CadastroDadosAcademicos" component={CadastroDadosAcademicos} />
           
