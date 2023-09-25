@@ -29,7 +29,7 @@ function Routes() {
         >
           <Stack.Screen name="Login" component={Login} />
 
-          <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
+          <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} /> 
 
           <Stack.Screen name="CadastroDoDia" component={CadastroDoDia} />
 
@@ -39,9 +39,9 @@ function Routes() {
 
           <Stack.Screen name="ListaDePassageiros" component={ListaDePassageiros} options={{ headerShown: false }} />
 
-          <Stack.Screen name="CadastroDadosPessoais" component={CadastroDadosPessoais} />
+    {/*       <Stack.Screen name="CadastroDadosPessoais" component={CadastroDadosPessoais} />
           <Stack.Screen name="CadastroDadosAcademicos" component={CadastroDadosAcademicos} />
-          
+           */}
 
         </Stack.Navigator>
       </NavigationContainer>

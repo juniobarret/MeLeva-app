@@ -9,7 +9,7 @@ import { db } from "../conf/firebase";
 
 
 function CadastroDoDia({ navigation }) {
-  const [nome, setNome] = useState('');
+  const [nome, setNome] = useState(''); 
   const [dataAula, setDataAula] = useState('');
   const [faculdade, setFaculdade] = useState('IFNMG');
 
