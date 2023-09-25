@@ -2,29 +2,25 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import LogoMeLeva from '../components/LogoMeLeva';
 import { auth } from '../conf/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth'; 
 
+function Login({ navigation }) { // Certifique-se de receber "navigation" como uma propriedade
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  function Login({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-  
-    const handleLogin = async () => {
-      try {
-        if (email && password) {
-          // Use a função signInWithEmailAndPassword para fazer login com email e senha
-          await auth().signInWithEmailAndPassword(email, password);
-  
-          // Se o login for bem-sucedido, você pode redirecionar para a próxima tela
-          navigation.navigate('TelaPrincipal');
-        } else {
-          alert('Por favor, preencha todos os campos.');
-        }
-      } catch (error) {
-        // Em caso de erro, trate o erro de autenticação aqui
-        // Você pode exibir uma mensagem de erro para o usuário ou fazer o que for necessário
-        alert('Erro de autenticação: ' + error.message);
-      }
-    };
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        navigation.navigate('Menu'); // Use "navigation" para navegar para a próxima tela
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
 
   return (
     <View style={styles.container}>

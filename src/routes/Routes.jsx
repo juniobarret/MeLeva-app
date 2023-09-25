@@ -1,4 +1,3 @@
-
 import Login from "../screens/Login";
 import Principal from "../screens/Principal";
 import Menu from "../screens/Menu";
@@ -7,6 +6,8 @@ import PontosDeSaida from "../screens/PontosDeSaida";
 import Reclamacoes from "../screens/Reclamacoes";
 import CadastroDoDia from "../screens/CadastroDoDia";
 import ListaDePassageiros from "../screens/ListaDePassageiros";
+import CadastroDadosPessoais from "../screens/CadastroDadosPessoais"; 
+import CadastroDadosAcademicos from "../screens/CadastroDadosAcademicos"; 
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,41 +16,38 @@ import { View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
-function Routes(){
+function Routes() {
   const insets = useSafeAreaInsets();
 
-    return (
-      <View style={{ flex: 1, paddingTop: insets.top }}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false
-            }}>
+  return (
+    <View style={{ flex: 1, paddingTop: insets.top }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="Login" component={Login} />
 
-          <Stack.Screen name="Login" component={Login} />  
+          <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
 
-           {  <Stack.Screen name="Menu" component={Menu} options={{
-              headerShown: false 
-            }} /> }   
+          <Stack.Screen name="CadastroDoDia" component={CadastroDoDia} />
 
-            {<Stack.Screen name="CadastroDoDia" component={CadastroDoDia} /> }
-            
-            <Stack.Screen name="Reclamacoes" component={Reclamacoes} options={{
-              headerShown: false
-             }} />
+          <Stack.Screen name="Reclamacoes" component={Reclamacoes} options={{ headerShown: false }} />
 
-            <Stack.Screen name="PontosDeSaida" component={PontosDeSaida} options={{
-              headerShown: false
-             }} />  
+          <Stack.Screen name="PontosDeSaida" component={PontosDeSaida} options={{ headerShown: false }} />
 
-            <Stack.Screen name="ListaDePassageiros" component={ListaDePassageiros} options={{
-              headerShown: false
-              }} />
-         
-          </Stack.Navigator>
-        </NavigationContainer>
-        </View>
-      );
+          <Stack.Screen name="ListaDePassageiros" component={ListaDePassageiros} options={{ headerShown: false }} />
+
+          {/* Adicione as novas telas de cadastro aqui */}
+          <Stack.Screen name="CadastroDadosPessoais" component={CadastroDadosPessoais} />
+          <Stack.Screen name="CadastroDadosAcademicos" component={CadastroDadosAcademicos} />
+          
+
+        </Stack.Navigator>
+      </NavigationContainer>
+    </View>
+  );
 }
 
 export default Routes;
