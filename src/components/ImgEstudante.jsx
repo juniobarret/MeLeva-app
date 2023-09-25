@@ -12,12 +12,10 @@ const ImgEstudante = () => {
 
 const styles = {
     logo: {
-        marginBottom: 10,
-        //Alinhe a imagem a direita:
+        marginTop: 20,
         alignSelf: 'flex-end',
-        marginBottom: 80,
-        width: 250,
-        height: 250,
+        width: 200,
+        height: 200,
         resizeMode: 'contain',
     }
 }

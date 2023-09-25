@@ -3,8 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import LogoMeLeva from '../components/LogoMeLeva';
 import { auth } from '../conf/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth'; 
+import ImgEstudante from '../components/ImgEstudante';
 
-function Login({ navigation }) { // Certifique-se de receber "navigation" como uma propriedade
+function Login({ navigation }) { 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,7 +14,7 @@ function Login({ navigation }) { // Certifique-se de receber "navigation" como u
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        navigation.navigate('Menu'); // Use "navigation" para navegar para a próxima tela
+        navigation.navigate('Menu'); 
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
+    paddingTop: -200,
     fontWeight: 'bold',
     fontSize: 50,
     color: '#ffffff',

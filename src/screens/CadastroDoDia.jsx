@@ -159,19 +159,23 @@ const styles = StyleSheet.create({
   },
 
   BotaoEnviar: {
-    flex: 1, 
-    height: 40,
     backgroundColor: "#1e7557",
-    borderRadius: 20,
+    borderRadius: 25,
     justifyContent: "center",
     alignItems: "center", 
-    marginTop: 20, 
+    width: "22%",
+    height: "10%",
+    marginTop:  10,
+    marginHorizontal: "75%",
+    
   },
 
   BotaoEnviarText: {
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "bold",
+
+
   },
 });
 

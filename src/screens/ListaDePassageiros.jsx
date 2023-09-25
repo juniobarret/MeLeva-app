@@ -74,6 +74,8 @@ function ListaDePassageiros() {
   return (
 
     <View style={styles.container}>
+
+      <View style={styles.part1}>
       <Text style={styles.titulo}>Lista de Passageiros</Text>
       <View style={styles.filtroContainer}>
         <Text style={styles.filtroLabel}>Filtro de pesquisa</Text>
@@ -106,6 +108,7 @@ function ListaDePassageiros() {
           </View>
         </View>
       </View>
+
       {filtroFaculdade === "Todas" ? (
         <FlatList
           data={faculdadesOrdenadas}
@@ -148,6 +151,12 @@ function ListaDePassageiros() {
       <Text style={styles.totalPassageiros}>
         Total de Passageiros: {totalPassageiros}
       </Text>
+      </View>
+
+      <View style={styles.part2}>
+        <ButtonRetorno />
+      </View>
+
     </View>
 
   );
@@ -157,6 +166,13 @@ const styles = StyleSheet.create({
     part1: {
         flex: 1,
         backgroundColor: "#86BDAA",
+    },
+
+    part2: {
+        alignContent: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+
     },
     
   container: {
@@ -237,7 +253,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
-    backgroundColor: "#1e7557", // Cor de fundo
+    backgroundColor: "#1e7557", 
   },
 
   label: {

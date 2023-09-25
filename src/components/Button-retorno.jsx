@@ -3,16 +3,21 @@ import { Text, TouchableOpacity } from "react-native";
 
 function Button({titulo, onPress}){
     return <TouchableOpacity style={{
-        backgroundColor: "#1E7557",
-        width: 30,
-        height: 30,
-        padding: 5,
-        margin: 10,        
+        backgroundColor: "#000000",
+        width: 80,
+        height: 25,
+        alignItems: "center",      
         borderRadius: 10,
+        marginTop: 10,
     }}
     onPress={() => navigation.navigate("Menu")}
     >
-        <img src="https://cdn-icons-png.flaticon.com/512/60/60793.png" width={15} alt="Botão de Retorno" />
+        <Text style={{
+            color: "#ffffff",
+            fontSize: 16,
+            fontWeight: "bold",
+        }}>Menu</Text>
+
     </TouchableOpacity>
 
 
