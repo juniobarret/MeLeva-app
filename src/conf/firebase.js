@@ -5,7 +5,7 @@ import { getFirestore } from "firebase/firestore";
 
 import { getAuth } from "firebase/auth";
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyCmn4qOJkLKSB0QFLU26AWYHQYNx2agu2Q",
   authDomain: "meleva-c37a0.firebaseapp.com",

@@ -27,7 +27,7 @@ function Routes() {
             headerShown: false,
           }}
         >
-          <Stack.Screen name="Login" component={Login} />
+         {/*   <Stack.Screen name="Login" component={Login} /> */}
 
           <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} /> 
 
