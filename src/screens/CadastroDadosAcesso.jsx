@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { createUserWithEmailAndPassword } from 'firebase/auth'; // Importe a função apropriada do Firebase Authentication
-import { auth } from '../conf/firebase'; // Importe a instância do Firebase Authentication
+import { createUserWithEmailAndPassword } from 'firebase/auth'; 
+import { auth } from '../conf/firebase'; 
 
 function CadastroDadosAcesso({ navigation }) {
   const [email, setEmail] = useState('');
@@ -32,18 +32,14 @@ function CadastroDadosAcesso({ navigation }) {
   const handleCadastro = async () => {
     if (validarCampos()) {
       try {
-        // Crie o usuário no Firebase Authentication
         const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
 
-        // O usuário foi criado com sucesso
         console.log('Usuário criado com sucesso:');
         console.log('Email:', userCredential.user.email);
 
-        // Navegue para a próxima tela (ou faça qualquer outra ação necessária)
-        // Por exemplo, você pode navegar para uma tela de confirmação
+        
         navigation.navigate('Login');
       } catch (error) {
-        // Trate qualquer erro que possa ocorrer durante o cadastro
         console.error('Erro ao criar o usuário:', error.message);
       }
     }

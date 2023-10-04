@@ -23,7 +23,6 @@ function Login({ navigation }) {
   };
 
   const handleEsqueceuSenha = () => {
-    // Navegue para a tela de recuperação de senha
     navigation.navigate('RecuperarSenha');
   };
 

@@ -46,7 +46,6 @@ function CadastroDadosPessoais({ navigation }) {
 
   const handleProximaEtapa = async () => {
     if (validarCampos()) {
-      // Salve os dados no Firebase Firestore
       const dadosPessoaisRef = collection(db, 'dadosPessoais');
       await addDoc(dadosPessoaisRef, {
         nome,
@@ -55,14 +54,14 @@ function CadastroDadosPessoais({ navigation }) {
         cpf,
       });
 
-      // Exibir dados salvos no console
+      // Exibir dados salvos no console para ter um controle bom:
       console.log('Dados salvos com sucesso:');
       console.log('Nome:', nome);
       console.log('Gênero:', genero);
       console.log('Data de Nascimento:', dataNascimento);
       console.log('CPF:', cpf);
 
-      // Navegar para a próxima tela (Dados Acadêmicos) e passar os parâmetros
+
       navigation.navigate('CadastroDadosAcademicos', {
         dadosPessoais: {
           nome,

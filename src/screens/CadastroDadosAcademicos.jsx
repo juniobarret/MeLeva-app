@@ -4,7 +4,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../conf/firebase';
 
 function CadastroDadosAcademicos({ navigation, route }) {
-  const { dadosPessoais } = route.params; // Recebe os dados pessoais da tela anterior
+  const { dadosPessoais } = route.params; 
   const [curso, setCurso] = useState('');
   const [instituicao, setInstituicao] = useState('');
   const [anoConclusao, setAnoConclusao] = useState('');
@@ -32,7 +32,6 @@ function CadastroDadosAcademicos({ navigation, route }) {
 
   const handleProximaEtapa = async () => {
     if (validarCampos()) {
-      // Combinar os dados pessoais com os dados acadêmicos
       const dadosCompletos = {
         ...dadosPessoais,
         curso,
@@ -40,11 +39,10 @@ function CadastroDadosAcademicos({ navigation, route }) {
         anoConclusao,
       };
 
-      // Salvar todos os dados no Firebase Firestore
+
       const dadosCompletosRef = collection(db, 'dadosCompletos');
       await addDoc(dadosCompletosRef, dadosCompletos);
 
-      // Exibir dados salvos no console (opcional)
       console.log('Dados completos salvos com sucesso:');
       console.log('Nome:', dadosCompletos.nome);
       console.log('Gênero:', dadosCompletos.genero);
@@ -54,8 +52,7 @@ function CadastroDadosAcademicos({ navigation, route }) {
       console.log('Instituição:', dadosCompletos.instituicao);
       console.log('Ano de Conclusão:', dadosCompletos.anoConclusao);
 
-      // Navegar para a próxima tela (ou fazer qualquer outra ação necessária)
-      // Por exemplo, você pode navegar para uma tela de confirmação
+
       navigation.navigate('CadastroDadosAcesso');
     }
   };

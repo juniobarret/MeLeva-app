@@ -57,6 +57,8 @@ console.log("Passageiro cadastrado com o ID: ", docRef.id);
             style={styles.picker}
             onValueChange={(itemValue) => setFaculdade(itemValue)}
           >
+
+          
             <Picker.Item label="IFNMG" value="IFNMG" />
             <Picker.Item label="ALFA" value="ALFA" />
             <Picker.Item label="UNOPAR" value="UNOPAR" />
