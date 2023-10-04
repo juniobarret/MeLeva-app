@@ -1,128 +1,167 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Picker, Image } from 'react-native';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Picker } from 'react-native';
+import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../conf/firebase';
-import { launchImageLibrary } from 'react-native-image-picker'; // Importe o launchImageLibrary
 
 function CadastroDadosPessoais({ navigation }) {
   const [nome, setNome] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
-  const [sexo, setSexo] = useState('');
-  const [idade, setIdade] = useState('');
+  const [genero, setGenero] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('');
   const [cpf, setCpf] = useState('');
-  const [foto, setFoto] = useState(null); // Estado para armazenar a URI da foto
+  const [erros, setErros] = useState({});
 
-  const handleProximaEtapa = async () => {
-    // Valide os campos aqui, se necessário
-
-    // Salve os dados no Firebase Firestore
-    const dadosPessoaisRef = collection(db, 'dadosPessoais');
-    const novoDocumento = await addDoc(dadosPessoaisRef, {
-      nome,
-      sobrenome,
-      sexo,
-      idade,
-      cpf,
-      foto, // Salve a URI da foto
-    });
-
-    console.log('Documento ID: ', novoDocumento.id);
-
-    // Passe os dados para a próxima tela (Dados de Endereço)
-    navigation.navigate('CadastroEndereco', {
-      dadosPessoais: {
-        nome,
-        sobrenome,
-        sexo,
-        idade,
-        cpf,
-        foto, // Passe a URI da foto para a próxima tela
-      },
-    });
+  // Função para formatar a data de nascimento e limitar a 8 dígitos
+  const formatarData = (data) => {
+    if (data.length <= 10) {
+      if (data.length === 2 || data.length === 5) {
+        setDataNascimento(data + '/');
+      } else {
+        setDataNascimento(data);
+      }
+    }
   };
 
-  const handleEscolherFoto = () => {
-    // Configuração para o ImagePicker
-    const options = {
-      mediaType: 'photo', // Especifique que queremos fotos, não vídeos
-      quality: 0.5, // Qualidade da imagem
-    };
+  const validarCampos = () => {
+    const novosErros = {};
 
-    // Mostra o launchImageLibrary para selecionar uma foto
-    launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        console.log('Seleção de foto cancelada');
-      } else if (response.errorMessage) {
-        console.log('Erro ao selecionar foto: ', response.errorMessage);
-      } else {
-        // Atualize o estado com a URI da foto selecionada
-        setFoto(response.assets[0].uri);
-      }
-    });
+    if (!nome) {
+      novosErros.nome = 'Campo obrigatório';
+    }
+
+    if (!genero) {
+      novosErros.genero = 'Campo obrigatório';
+    }
+
+    if (!dataNascimento) {
+      novosErros.dataNascimento = 'Campo obrigatório';
+    }
+
+    if (!cpf) {
+      novosErros.cpf = 'Campo obrigatório';
+    }
+
+    setErros(novosErros);
+
+    return Object.keys(novosErros).length === 0;
+  };
+
+  const handleProximaEtapa = async () => {
+    // Valide os campos
+    if (validarCampos()) {
+      // Salve os dados no Firebase Firestore
+      const dadosPessoaisRef = collection(db, 'dadosPessoais');
+      await addDoc(dadosPessoaisRef, {
+        nome,
+        genero,
+        dataNascimento,
+        cpf,
+      });
+
+      // Passe os dados para a próxima tela (Dados Acadêmicos):
+      navigation.navigate('CadastroDadosAcademicos', {
+        dadosPessoais: {
+          nome,
+          genero,
+          dataNascimento,
+          cpf,
+        },
+      });
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Cadastro - Dados Pessoais</Text>
+      
+      {/* Nome */}
+<View style={styles.inputView}>
+  <Text style={styles.label}>Nome:</Text>
+  <TextInput
+    style={[styles.inputText, erros.nome && styles.inputError]}
+    placeholder="Digite seu nome"
+    onChangeText={(text) => {
+      // Use uma expressão regular para aceitar letras, espaços e acentos
+      const alphabeticText = text.replace(/[^a-zA-ZÀ-ú\s]/g, '');
+      setNome(alphabeticText);
+    }}
+    value={nome} // Adicione esta linha para garantir que o valor seja sempre atualizado
+  />
+  {erros.nome && <Text style={styles.errorMessage}>{erros.nome}</Text>}
+</View>
+
+
+      {/* Gênero */}
       <View style={styles.inputView}>
+        <Text style={styles.label}>Gênero:</Text>
+        <Picker
+          selectedValue={genero}
+          style={[styles.picker, erros.genero && styles.inputError]}
+          onValueChange={(itemValue) => setGenero(itemValue)}
+        >
+          <Picker.Item label="Selecione" value="" />
+          <Picker.Item label="Feminino" value="Feminino" />
+          <Picker.Item label="Masculino" value="Masculino" />
+          <Picker.Item label="Prefiro não responder" value="Prefiro não responder" />
+        </Picker>
+        {erros.genero && <Text style={styles.errorMessage}>{erros.genero}</Text>}
+      </View>
+
+     {/* Data de Nascimento */}
+      <View style={styles.inputView}>
+        <Text style={styles.label}>Data de Nascimento:</Text>
         <TextInput
-          style={styles.inputText}
-          placeholder="Nome"
-          onChangeText={(text) => setNome(text)}
+          style={[styles.inputText, erros.dataNascimento && styles.inputError]}
+          placeholder="DD/MM/AAAA"
+          onChangeText={(text) => {
+            const numericText = text.replace(/[^0-9]/g, ''); // Remova caracteres não numéricos
+
+            if (numericText.length <= 8) {
+              // Se o texto tem no máximo 8 caracteres (DDMMAAAA), formate a data:
+              let formattedText = '';
+              for (let i = 0; i < numericText.length; i++) {
+                if (i === 2 || i === 4) {
+                  formattedText += '/';
+                }
+                formattedText += numericText[i];
+              }
+              setDataNascimento(formattedText);
+            }
+            // Valida a data para que não seja maior que 31 dias ou 12 meses:
+            const [dia, mes, ano] = numericText.split('/').map(Number);
+
+            if (dia > 31 || mes > 12 || ano < 1900) {
+            }
+          }}
+          value={dataNascimento}
+          maxLength={10}
         />
+        {erros.dataNascimento && <Text style={styles.errorMessage}>{erros.dataNascimento}</Text>}
       </View>
+
+
+
+
+
+      {/* CPF */}
       <View style={styles.inputView}>
+        <Text style={styles.label}>CPF:</Text>
         <TextInput
-          style={styles.inputText}
-          placeholder="Sobrenome"
-          onChangeText={(text) => setSobrenome(text)}
-        />
-      </View>
-      <View style={styles.sexoIdadeView}>
-        <View style={styles.sexoView}>
-          <Text style={styles.label}>Sexo:</Text>
-          <Picker
-            selectedValue={sexo}
-            style={styles.picker}
-            onValueChange={(itemValue) => setSexo(itemValue)}
-          >
-            <Picker.Item label="Selecione" value="" />
-            <Picker.Item label="Feminino" value="Feminino" />
-            <Picker.Item label="Masculino" value="Masculino" />
-            <Picker.Item label="Prefiro não informar" value="Prefiro não informar" />
-          </Picker>
-        </View>
-        <View style={styles.idadeView}>
-          <TextInput
-            style={styles.inputText}
-            placeholder="Idade"
-            onChangeText={(text) => setIdade(text)}
-            keyboardType="numeric"
-          />
-        </View>
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="CPF"
-          onChangeText={(text) => setCpf(text)}
+          style={[styles.inputText, erros.cpf && styles.inputError]}
+          placeholder="Digite seu CPF"
           keyboardType="numeric"
+          onChangeText={(text) => {
+            const numericText = text.replace(/[^0-9]/g, '');
+            setCpf(numericText);
+          }}
+          value={cpf}
+          maxLength={11}
         />
+        {erros.cpf && <Text style={styles.errorMessage}>{erros.cpf}</Text>}
       </View>
 
-      {/* Área para carregar a foto */}
-      <TouchableOpacity style={styles.fotoContainer} onPress={handleEscolherFoto}>
-        {foto ? (
-          <Image source={{ uri: foto }} style={styles.foto} />
-        ) : (
-          <View style={styles.fotoPlaceholder}>
-            <Text style={styles.fotoTexto}>Carregar Foto</Text>
-          </View>
-        )}
-      </TouchableOpacity>
-
+      {/* Botão Próximo */}
       <TouchableOpacity style={styles.botao} onPress={handleProximaEtapa}>
-        <Text style={styles.textoBotao}>Próxima Etapa</Text>
+        <Text style={styles.textoBotao}>Próximo</Text>
       </TouchableOpacity>
     </View>
   );
@@ -131,7 +170,7 @@ function CadastroDadosPessoais({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#86BDAA',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -139,56 +178,33 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#1e90ff', // Alterada a cor para a paleta do projeto
+    color: '#ffffff',
   },
   inputView: {
     width: '80%',
-    backgroundColor: '#f0f0f0',
-    borderRadius: 25,
-    height: 50,
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
     marginBottom: 20,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  sexoIdadeView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
-    marginBottom: 20,
-  },
-  sexoView: {
-    flex: 1,
-    marginRight: 10,
-    borderRadius: 25,
-    height: 50,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  idadeView: {
-    flex: 1,
-    marginLeft: 10,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 25,
-    marginTop: 10,
-    height: '80%',
-    justifyContent: 'center',
     paddingHorizontal: 20,
   },
   label: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 15,
     color: '#333',
   },
   inputText: {
-    height: 50,
+    height: 40,
     color: '#333',
+    borderColor: '#ffffff',
+    borderWidth: 1,
   },
   picker: {
-    height: 50,
+    width: '100%',
     color: '#333',
+    borderColor: '#ffffff',
+    marginBottom: 5,
   },
   botao: {
-    width: '80%',
+    width: '30%',
     backgroundColor: '#1e7557',
     borderRadius: 25,
     height: 50,
@@ -199,32 +215,13 @@ const styles = StyleSheet.create({
   textoBotao: {
     color: '#ffffff',
   },
-  // Estilos para a área de carregar a foto
-  fotoContainer: {
-    width: '80%',
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 25,
+  errorMessage: {
+    fontSize: 12,
+    color: 'red',
+    marginLeft: 5,
   },
-  fotoPlaceholder: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#333',
-  },
-  fotoTexto: {
-    color: '#ffffff',
-    fontSize: 16,
-  },
-  foto: {
-    width: '20',
-    height: '20',
-    borderRadius: 80,
+  inputError: {
+    
   },
 });
 
