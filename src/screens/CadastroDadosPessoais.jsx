@@ -10,7 +10,6 @@ function CadastroDadosPessoais({ navigation }) {
   const [cpf, setCpf] = useState('');
   const [erros, setErros] = useState({});
 
-  
   const formatarData = (data) => {
     if (data.length <= 10) {
       if (data.length === 2 || data.length === 5) {
@@ -46,7 +45,6 @@ function CadastroDadosPessoais({ navigation }) {
   };
 
   const handleProximaEtapa = async () => {
-
     if (validarCampos()) {
       // Salve os dados no Firebase Firestore
       const dadosPessoaisRef = collection(db, 'dadosPessoais');
@@ -57,6 +55,14 @@ function CadastroDadosPessoais({ navigation }) {
         cpf,
       });
 
+      // Exibir dados salvos no console
+      console.log('Dados salvos com sucesso:');
+      console.log('Nome:', nome);
+      console.log('Gênero:', genero);
+      console.log('Data de Nascimento:', dataNascimento);
+      console.log('CPF:', cpf);
+
+      // Navegar para a próxima tela (Dados Acadêmicos)
       navigation.navigate('CadastroDadosAcademicos', {
         dadosPessoais: {
           nome,
@@ -71,85 +77,80 @@ function CadastroDadosPessoais({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Cadastro - Dados Pessoais</Text>
-      
-      {/* Nome */}
-        <View style={styles.inputView}>
-          <Text style={styles.label}>Nome:</Text>
-          <TextInput
-            style={[styles.inputText, erros.nome && styles.inputError]}
-            placeholder="Digite seu nome"
-            onChangeText={(text) => {
-              const alphabeticText = text.replace(/[^a-zA-ZÀ-ú\s]/g, '');
-              setNome(alphabeticText);
-            }}
-            value={nome}
-          />
-          {erros.nome && <Text style={styles.errorMessage}>{erros.nome}</Text>}
-        </View>
 
+      {/* Nome */}
+      <View style={styles.inputView}>
+        <Text style={styles.label}>Nome:</Text>
+        <TextInput
+          style={[styles.inputText, erros.nome && styles.inputError]}
+          placeholder="Digite seu nome"
+          onChangeText={(text) => {
+            const alphabeticText = text.replace(/[^a-zA-ZÀ-ú\s]/g, '');
+            setNome(alphabeticText);
+          }}
+          value={nome}
+        />
+        {erros.nome && <Text style={styles.errorMessage}>{erros.nome}</Text>}
+      </View>
 
       {/* Gênero */}
-        <View style={styles.inputView}>
-          <Text style={styles.label}>Gênero:</Text>
-          <Picker
-            selectedValue={genero}
-            style={[styles.picker, erros.genero && styles.inputError]}
-            onValueChange={(itemValue) => setGenero(itemValue)}
-          >
-            <Picker.Item label="Selecione" value="" />
-            <Picker.Item label="Feminino" value="Feminino" />
-            <Picker.Item label="Masculino" value="Masculino" />
-            <Picker.Item label="Prefiro não responder" value="Prefiro não responder" />
-          </Picker>
-          {erros.genero && <Text style={styles.errorMessage}>{erros.genero}</Text>}
-        </View>
-
-
+      <View style={styles.inputView}>
+        <Text style={styles.label}>Gênero:</Text>
+        <Picker
+          selectedValue={genero}
+          style={[styles.picker, erros.genero && styles.inputError]}
+          onValueChange={(itemValue) => setGenero(itemValue)}
+        >
+          <Picker.Item label="Selecione" value="" />
+          <Picker.Item label="Feminino" value="Feminino" />
+          <Picker.Item label="Masculino" value="Masculino" />
+          <Picker.Item label="Prefiro não responder" value="Prefiro não responder" />
+        </Picker>
+        {erros.genero && <Text style={styles.errorMessage}>{erros.genero}</Text>}
+      </View>
 
       {/* Data de Nascimento */}
-<View style={styles.inputView}>
-  <Text style={styles.label}>Data de Nascimento:</Text>
-  <TextInput
-    style={[styles.inputText, erros.dataNascimento && styles.inputError]}
-    placeholder="DD/MM/AAAA"
-    onChangeText={(text) => {
-      const numericText = text.replace(/[^0-9]/g, ''); 
+      <View style={styles.inputView}>
+        <Text style={styles.label}>Data de Nascimento:</Text>
+        <TextInput
+          style={[styles.inputText, erros.dataNascimento && styles.inputError]}
+          placeholder="DD/MM/AAAA"
+          onChangeText={(text) => {
+            const numericText = text.replace(/[^0-9]/g, '');
 
-      if (numericText.length <= 8) {
-        let formattedText = '';
-        for (let i = 0; i < numericText.length; i++) {
-          if (i === 2 || i === 4) {
-            formattedText += '/';
-          }
-          formattedText += numericText[i];
-        }
-        setDataNascimento(formattedText);
-      }
-      if (numericText.length === 8) {
-        const dia = Number(numericText.substring(0, 2));
-        const mes = Number(numericText.substring(2, 4));
-        const ano = Number(numericText.substring(4, 8));
+            if (numericText.length <= 8) {
+              let formattedText = '';
+              for (let i = 0; i < numericText.length; i++) {
+                if (i === 2 || i === 4) {
+                  formattedText += '/';
+                }
+                formattedText += numericText[i];
+              }
+              setDataNascimento(formattedText);
+            }
+            if (numericText.length === 8) {
+              const dia = Number(numericText.substring(0, 2));
+              const mes = Number(numericText.substring(2, 4));
+              const ano = Number(numericText.substring(4, 8));
 
-        if (dia > 0 && dia <= 31 && mes > 0 && mes <= 12 && ano >= 1900) {
-          setErros({
-            ...erros,
-            dataNascimento: '', 
-          });
-        } else {
-          setErros({
-            ...erros,
-            dataNascimento: 'Data inválida',
-          });
-        }
-      }
-    }}
-    value={dataNascimento}
-    maxLength={10}
-  />
-  {erros.dataNascimento && <Text style={styles.errorMessage}>{erros.dataNascimento}</Text>}
-</View>
-
-
+              if (dia > 0 && dia <= 31 && mes > 0 && mes <= 12 && ano >= 1900) {
+                setErros({
+                  ...erros,
+                  dataNascimento: '',
+                });
+              } else {
+                setErros({
+                  ...erros,
+                  dataNascimento: 'Data inválida',
+                });
+              }
+            }
+          }}
+          value={dataNascimento}
+          maxLength={10}
+        />
+        {erros.dataNascimento && <Text style={styles.errorMessage}>{erros.dataNascimento}</Text>}
+      </View>
 
       {/* CPF */}
       <View style={styles.inputView}>
@@ -167,9 +168,6 @@ function CadastroDadosPessoais({ navigation }) {
         />
         {erros.cpf && <Text style={styles.errorMessage}>{erros.cpf}</Text>}
       </View>
-
-
-
 
       {/* Botão Próximo */}
       <TouchableOpacity style={styles.botao} onPress={handleProximaEtapa}>
@@ -233,7 +231,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   inputError: {
-    
+    borderColor: 'red',
+    borderWidth: 1,
   },
 });
 
