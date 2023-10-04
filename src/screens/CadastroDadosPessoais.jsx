@@ -74,69 +74,86 @@ function CadastroDadosPessoais({ navigation }) {
       <Text style={styles.titulo}>Cadastro - Dados Pessoais</Text>
       
       {/* Nome */}
-<View style={styles.inputView}>
-  <Text style={styles.label}>Nome:</Text>
-  <TextInput
-    style={[styles.inputText, erros.nome && styles.inputError]}
-    placeholder="Digite seu nome"
-    onChangeText={(text) => {
-      // Use uma expressão regular para aceitar letras, espaços e acentos
-      const alphabeticText = text.replace(/[^a-zA-ZÀ-ú\s]/g, '');
-      setNome(alphabeticText);
-    }}
-    value={nome} // Adicione esta linha para garantir que o valor seja sempre atualizado
-  />
-  {erros.nome && <Text style={styles.errorMessage}>{erros.nome}</Text>}
-</View>
+        <View style={styles.inputView}>
+          <Text style={styles.label}>Nome:</Text>
+          <TextInput
+            style={[styles.inputText, erros.nome && styles.inputError]}
+            placeholder="Digite seu nome"
+            onChangeText={(text) => {
+              // Use uma expressão regular para aceitar letras, espaços e acentos
+              const alphabeticText = text.replace(/[^a-zA-ZÀ-ú\s]/g, '');
+              setNome(alphabeticText);
+            }}
+            value={nome} // Adicione esta linha para garantir que o valor seja sempre atualizado
+          />
+          {erros.nome && <Text style={styles.errorMessage}>{erros.nome}</Text>}
+        </View>
 
 
       {/* Gênero */}
-      <View style={styles.inputView}>
-        <Text style={styles.label}>Gênero:</Text>
-        <Picker
-          selectedValue={genero}
-          style={[styles.picker, erros.genero && styles.inputError]}
-          onValueChange={(itemValue) => setGenero(itemValue)}
-        >
-          <Picker.Item label="Selecione" value="" />
-          <Picker.Item label="Feminino" value="Feminino" />
-          <Picker.Item label="Masculino" value="Masculino" />
-          <Picker.Item label="Prefiro não responder" value="Prefiro não responder" />
-        </Picker>
-        {erros.genero && <Text style={styles.errorMessage}>{erros.genero}</Text>}
-      </View>
+        <View style={styles.inputView}>
+          <Text style={styles.label}>Gênero:</Text>
+          <Picker
+            selectedValue={genero}
+            style={[styles.picker, erros.genero && styles.inputError]}
+            onValueChange={(itemValue) => setGenero(itemValue)}
+          >
+            <Picker.Item label="Selecione" value="" />
+            <Picker.Item label="Feminino" value="Feminino" />
+            <Picker.Item label="Masculino" value="Masculino" />
+            <Picker.Item label="Prefiro não responder" value="Prefiro não responder" />
+          </Picker>
+          {erros.genero && <Text style={styles.errorMessage}>{erros.genero}</Text>}
+        </View>
 
-     {/* Data de Nascimento */}
-      <View style={styles.inputView}>
-        <Text style={styles.label}>Data de Nascimento:</Text>
-        <TextInput
-          style={[styles.inputText, erros.dataNascimento && styles.inputError]}
-          placeholder="DD/MM/AAAA"
-          onChangeText={(text) => {
-            const numericText = text.replace(/[^0-9]/g, ''); // Remova caracteres não numéricos
 
-            if (numericText.length <= 8) {
-              // Se o texto tem no máximo 8 caracteres (DDMMAAAA), formate a data:
-              let formattedText = '';
-              for (let i = 0; i < numericText.length; i++) {
-                if (i === 2 || i === 4) {
-                  formattedText += '/';
-                }
-                formattedText += numericText[i];
-              }
-              setDataNascimento(formattedText);
-            }
-            // Valida a data para que não seja maior que 31 dias ou 12 meses:
-            const [dia, mes, ano] = numericText.split('/').map(Number);
 
-            if (dia > 31 || mes > 12 || ano < 1900) {
-            }
-          }}
-          value={dataNascimento}
-          maxLength={10}
-        />
-        {erros.dataNascimento && <Text style={styles.errorMessage}>{erros.dataNascimento}</Text>}
-      </View>
+      {/* Data de Nascimento */}
+<View style={styles.inputView}>
+  <Text style={styles.label}>Data de Nascimento:</Text>
+  <TextInput
+    style={[styles.inputText, erros.dataNascimento && styles.inputError]}
+    placeholder="DD/MM/AAAA"
+    onChangeText={(text) => {
+      const numericText = text.replace(/[^0-9]/g, ''); 
+
+      if (numericText.length <= 8) {
+        let formattedText = '';
+        for (let i = 0; i < numericText.length; i++) {
+          if (i === 2 || i === 4) {
+            formattedText += '/';
+          }
+          formattedText += numericText[i];
+        }
+        setDataNascimento(formattedText);
+      }
+      if (numericText.length === 8) {
+        const dia = Number(numericText.substring(0, 2));
+        const mes = Number(numericText.substring(2, 4));
+        const ano = Number(numericText.substring(4, 8));
+
+        if (dia > 0 && dia <= 31 && mes > 0 && mes <= 12 && ano >= 1900) {
+          setErros({
+            ...erros,
+            dataNascimento: '', 
+          });
+        } else {
+          setErros({
+            ...erros,
+            dataNascimento: 'Data inválida',
+          });
+        }
+      }
+    }}
+    value={dataNascimento}
+    maxLength={10}
+  />
+  {erros.dataNascimento && <Text style={styles.errorMessage}>{erros.dataNascimento}</Text>}
+</View>
+
+
+
+
 
 
 
