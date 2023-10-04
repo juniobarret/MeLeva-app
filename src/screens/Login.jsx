@@ -3,7 +3,6 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import LogoMeLeva from '../components/LogoMeLeva';
 import { auth } from '../conf/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth'; 
-import ImgEstudante from '../components/ImgEstudante';
 
 function Login({ navigation }) { 
   const [email, setEmail] = useState('');
@@ -21,6 +20,11 @@ function Login({ navigation }) {
         const errorMessage = error.message;
         console.log(errorMessage);
       });
+  };
+
+  const handleEsqueceuSenha = () => {
+    // Navegue para a tela de recuperação de senha
+    navigation.navigate('RecuperarSenha');
   };
 
   return (
@@ -43,10 +47,15 @@ function Login({ navigation }) {
           onChangeText={(text) => setPassword(text)}
         />
       </View>
+      <View style={styles.esqueceuSenhaContainer}>
+        <TouchableOpacity onPress={handleEsqueceuSenha}>
+          <Text style={styles.esqueceuSenhaText}>Esqueceu a senha?</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Registro')}>
+      <TouchableOpacity onPress={() => navigation.navigate('CadastroDadosPessoais')}>
         <Text style={styles.signupText}>Não possui uma conta? Cadastre-se aqui.</Text>
       </TouchableOpacity>
     </View>
@@ -59,13 +68,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#86BDAA',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  logo: {
-    paddingTop: -200,
-    fontWeight: 'bold',
-    fontSize: 50,
-    color: '#ffffff',
-    marginBottom: 40,
   },
   inputView: {
     width: '80%',
@@ -96,6 +98,16 @@ const styles = StyleSheet.create({
   signupText: {
     color: '#ffffff',
     marginTop: 20,
+  },
+  esqueceuSenhaContainer: {
+    width: '75%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  esqueceuSenhaText: {
+    color: 'black',
+    fontSize: 12,
+    textShadowColor: '#ffffff',
   },
 });
 

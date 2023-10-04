@@ -62,7 +62,7 @@ function CadastroDadosPessoais({ navigation }) {
       console.log('Data de Nascimento:', dataNascimento);
       console.log('CPF:', cpf);
 
-      // Navegar para a próxima tela (Dados Acadêmicos)
+      // Navegar para a próxima tela (Dados Acadêmicos) e passar os parâmetros
       navigation.navigate('CadastroDadosAcademicos', {
         dadosPessoais: {
           nome,
@@ -73,6 +73,7 @@ function CadastroDadosPessoais({ navigation }) {
       });
     }
   };
+      
 
   return (
     <View style={styles.container}>

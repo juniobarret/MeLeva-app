@@ -1,7 +1,5 @@
 import Login from "../screens/Login";
-import Principal from "../screens/Principal";
 import Menu from "../screens/Menu";
-import Agenda from "../screens/Agenda";
 import PontosDeSaida from "../screens/PontosDeSaida";
 import Reclamacoes from "../screens/Reclamacoes";
 import CadastroDoDia from "../screens/CadastroDoDia";
@@ -13,6 +11,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
+import CadastroDadosAcesso from "../screens/CadastroDadosAcesso";
+import RecuperarSenha from "../screens/RecuperarSenha";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +27,9 @@ function Routes() {
             headerShown: false,
           }}
         >
-         {/* {   <Stack.Screen name="Login" component={Login} /> }
+          {<Stack.Screen name="Login" component={Login} /> }
+
+          <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} options={{ headerShown: false }} />
 
           <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} /> 
 
@@ -37,10 +39,16 @@ function Routes() {
 
           <Stack.Screen name="PontosDeSaida" component={PontosDeSaida} options={{ headerShown: false }} />
 
-          <Stack.Screen name="ListaDePassageiros" component={ListaDePassageiros} options={{ headerShown: false }} /> */}
-
+          <Stack.Screen name="ListaDePassageiros" component={ListaDePassageiros} options={{ headerShown: false }} /> 
+      
           <Stack.Screen name="CadastroDadosPessoais" component={CadastroDadosPessoais} />
-          <Stack.Screen name="CadastroDadosAcademicos" component={CadastroDadosAcademicos} />
+  
+
+          <Stack.Screen name="CadastroDadosAcademicos" component={CadastroDadosAcademicos} /> 
+
+          <Stack.Screen name="CadastroDadosAcesso" component={CadastroDadosAcesso} />
+
+
 
 
         </Stack.Navigator>
