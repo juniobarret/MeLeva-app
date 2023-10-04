@@ -10,7 +10,7 @@ function CadastroDadosPessoais({ navigation }) {
   const [cpf, setCpf] = useState('');
   const [erros, setErros] = useState({});
 
-  // Função para formatar a data de nascimento e limitar a 8 dígitos
+  
   const formatarData = (data) => {
     if (data.length <= 10) {
       if (data.length === 2 || data.length === 5) {
@@ -46,7 +46,7 @@ function CadastroDadosPessoais({ navigation }) {
   };
 
   const handleProximaEtapa = async () => {
-    // Valide os campos
+
     if (validarCampos()) {
       // Salve os dados no Firebase Firestore
       const dadosPessoaisRef = collection(db, 'dadosPessoais');
@@ -57,7 +57,6 @@ function CadastroDadosPessoais({ navigation }) {
         cpf,
       });
 
-      // Passe os dados para a próxima tela (Dados Acadêmicos):
       navigation.navigate('CadastroDadosAcademicos', {
         dadosPessoais: {
           nome,
@@ -80,11 +79,10 @@ function CadastroDadosPessoais({ navigation }) {
             style={[styles.inputText, erros.nome && styles.inputError]}
             placeholder="Digite seu nome"
             onChangeText={(text) => {
-              // Use uma expressão regular para aceitar letras, espaços e acentos
               const alphabeticText = text.replace(/[^a-zA-ZÀ-ú\s]/g, '');
               setNome(alphabeticText);
             }}
-            value={nome} // Adicione esta linha para garantir que o valor seja sempre atualizado
+            value={nome}
           />
           {erros.nome && <Text style={styles.errorMessage}>{erros.nome}</Text>}
         </View>
@@ -153,12 +151,6 @@ function CadastroDadosPessoais({ navigation }) {
 
 
 
-
-
-
-
-
-
       {/* CPF */}
       <View style={styles.inputView}>
         <Text style={styles.label}>CPF:</Text>
@@ -175,6 +167,9 @@ function CadastroDadosPessoais({ navigation }) {
         />
         {erros.cpf && <Text style={styles.errorMessage}>{erros.cpf}</Text>}
       </View>
+
+
+
 
       {/* Botão Próximo */}
       <TouchableOpacity style={styles.botao} onPress={handleProximaEtapa}>
